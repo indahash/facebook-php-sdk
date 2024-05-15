@@ -23,7 +23,7 @@
 		"php-http/discovery": "^1.7",
 		"php-http/message": "^1.5",
 		"thecodingmachine/safe": "^2.5",
-		"guzzlehttp/psr7": "^2.5"
+		"guzzlehttp/psr7": "^2.2"
 	},
 	"require-dev": {
 		"stanislav-janu/phpstan": "^1.0",
