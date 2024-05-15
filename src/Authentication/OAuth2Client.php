@@ -127,6 +127,37 @@ class OAuth2Client
 
 
 	/**
+	 * Generates an authorization URL to begin the process of authenticating a user.
+	 *
+	 * @param string $redirectUrl the callback URL to redirect to
+	 * @param string $state       the CSPRNG-generated CSRF value
+	 * @param array  $scope       an array of permissions to request
+	 * @param array  $params      an array of parameters to generate URL
+	 * @param string $separator   the separator to use in http_build_query()
+	 */
+	public function getBusinessLoginAuthorizationUrl(
+		string $redirectUrl,
+		string $state,
+		array $scope = [],
+		array $params = [],
+		string $separator = '&',
+	): string
+	{
+		$params += [
+			'client_id' => $this->application->getId(),
+			'display' => 'page',
+			'extras' => '{"setup":{"channel":"IG_API_ONBOARDING"}}',
+			'redirect_uri' => $redirectUrl,
+			'response_type' => 'code',
+			'state' => $state,
+			'scope' => implode(',', $scope),
+		];
+
+		return static::BaseAuthorizationUrl . '/' . $this->graphVersion . '/dialog/oauth?' . http_build_query($params, '', $separator);
+	}
+
+
+	/**
 	 * Get a valid access token from a code.
 	 *
 	 * @throws SDKException

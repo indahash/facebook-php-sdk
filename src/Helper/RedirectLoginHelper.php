@@ -92,6 +92,14 @@ class RedirectLoginHelper
 	}
 
 
+	private function makeBusinessLoginUrl(string $redirectUrl, array $scope, array $params = [], string $separator = '&'): string
+	{
+		$state = $this->getStateForUrl();
+
+		return $this->oAuth2Client->getBusinessLoginAuthorizationUrl($redirectUrl, $state, $scope, $params, $separator);
+	}
+
+
 	public function getStateForUrl()
 	{
 		$state = $this->persistentDataHandler->get('state') ?? $this->getPseudoRandomString();
@@ -117,6 +125,19 @@ class RedirectLoginHelper
 	public function getLoginUrl(string $redirectUrl, array $scope = [], string $separator = '&'): string
 	{
 		return $this->makeUrl($redirectUrl, $scope, [], $separator);
+	}
+
+
+	/**
+	 * Returns the URL to send the user in order to login to Facebook.
+	 *
+	 * @param string $redirectUrl the URL Facebook should redirect users to after login
+	 * @param array  $scope       list of permissions to request during login
+	 * @param string $separator   the separator to use in http_build_query()
+	 */
+	public function getBusinessLoginUrl(string $redirectUrl, array $scope = [], string $separator = '&'): string
+	{
+		return $this->makeBusinessLoginUrl($redirectUrl, $scope, [], $separator);
 	}
 
 
