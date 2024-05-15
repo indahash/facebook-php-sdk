@@ -20,7 +20,7 @@
 		"psr/http-message": "1.0.*",
 		"php-http/client-implementation": "^1.0",
 		"php-http/httplug": "^2.0",
-		"php-http/discovery": "^1.15",
+		"php-http/discovery": "^1.7",
 		"php-http/message": "^1.14",
 		"thecodingmachine/safe": "^2.5",
 		"guzzlehttp/psr7": "^2.5"
