@@ -86,10 +86,18 @@ class RedirectLoginHelper
 	 */
 	private function makeUrl(string $redirectUrl, array $scope, array $params = [], string $separator = '&'): string
 	{
+		$state = $this->getStateForUrl();
+
+		return $this->oAuth2Client->getAuthorizationUrl($redirectUrl, $state, $scope, $params, $separator);
+	}
+
+
+	public function getStateForUrl()
+	{
 		$state = $this->persistentDataHandler->get('state') ?? $this->getPseudoRandomString();
 		$this->persistentDataHandler->set('state', $state);
 
-		return $this->oAuth2Client->getAuthorizationUrl($redirectUrl, $state, $scope, $params, $separator);
+		return $state;
 	}
 
 
